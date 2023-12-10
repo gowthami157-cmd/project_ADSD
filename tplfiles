@@ -1,0 +1,99 @@
+movies.tpl:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies</title>
+</head>
+<body>
+    <h1>Movies</h1>
+    <ul>
+        % for movie in movies:
+            <li>
+                <a href="/movies/{{ movie['id'] }}">{{ movie['title'] }}</a>
+            </li>
+        % end
+    </ul>
+    <a href="/movies/add">Add a Movie</a>
+</body>
+</html>
+Add_movie.tpl:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Movie</title>
+</head>
+<body>
+    <h1>Add Movie</h1>
+    <form action="/movies/add" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br>
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required><br>
+
+        <input type="submit" value="Add Movie">
+    </form>
+    <a href="/movies">Back to Movies</a>
+</body>
+</html>
+Add_rating.tpl:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Rating</title>
+</head>
+<body>
+    <h1>Add Rating</h1>
+    <form action="/movies/{{ movie_id }}/add_rating" method="post">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" required><br>
+
+        <input type="submit" value="Add Rating">
+    </form>
+    <a href="/movies/{{ movie_id }}">Back to Movie Details</a>
+</body>
+</html>
+Movie_details.tpl:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie['title'] }} Details</title>
+</head>
+<body>
+    <h1>{{ movie['title'] }} Details</h1>
+    <p>Title: {{ movie['title'] }}</p>
+    <p>Genre: {{ movie['genre'] }}</p>
+
+    <h2>Ratings</h2>
+    <ul>
+        % for rating in ratings:
+            <li>{{ rating[1] }}</li>
+        % end
+    </ul>
+
+    <a href="/movies/{{ movie['id'] }}/add_rating">Add a Rating</a>
+    <a href="/movies/{{ movie['id'] }}/update">Update Movie</a>
+    <a href="/movies/{{ movie['id'] }}/delete">Delete Movie</a>
+    <a href="/movies">Back to Movies</a>
+</body>
+</html>
+Update_movie.tpl:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Movie</title>
+</head>
+<body>
+    <h1>Update Movie</h1>
+    <form action="/movies/{{ movie['id'] }}/update" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ movie['title'] }}" required><br>
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" value="{{ movie['genre'] }}" required><br>
+
+        <input type="submit" value="Update Movie">
+    </form>
+    <a href="/movies/{{ movie['id'] }}">Back to Movie Details</a>
+</body>
+</html>
